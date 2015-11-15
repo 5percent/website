@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/5percent/website#readme",
   "dependencies": {
-    "express": "*"
+    "express": "4.x.x"
   }
 }
