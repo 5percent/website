@@ -1,0 +1,25 @@
+{
+  "name": "zlu-website",
+  "version": "1.0.0",
+  "description": "personal website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/5percent/website.git"
+  },
+  "keywords": [
+    "zlu"
+  ],
+  "author": "zlu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/5percent/website/issues"
+  },
+  "homepage": "https://github.com/5percent/website#readme",
+  "dependencies": {
+    "express": "*"
+  }
+}
