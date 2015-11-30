@@ -7,3 +7,6 @@ exports.snake = function (req, res) {
 exports.tetris = function (req, res) {
     res.sendfile(__dirname + '/views/tetris.html');
 }
+exports.calDay = function (req, res) {
+    res.sendfile(__dirname + '/views/calDay.html');
+}
