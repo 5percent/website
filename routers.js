@@ -1,12 +1,12 @@
 exports.home = function (req, res) {
-    res.sendfile(__dirname + '/views/home.html');
+    res.sendFile(__dirname + '/dist/index.html');
 }
 exports.snake = function (req, res) {
-    res.sendfile(__dirname + '/views/snake.html');
+    res.sendFile(__dirname + '/views/snake.html');
 }
 exports.tetris = function (req, res) {
-    res.sendfile(__dirname + '/views/tetris.html');
+    res.sendFile(__dirname + '/views/tetris.html');
 }
 exports.calDay = function (req, res) {
-    res.sendfile(__dirname + '/views/calDay.html');
+    res.sendFile(__dirname + '/views/calDay.html');
 }

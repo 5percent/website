@@ -1,15 +1,16 @@
 // system
-var express = require('express');
-var app = express();
+const express = require('express');
+const path = require('path');
+const app = express();
+
+app.use('/static/', express.static(path.join(__dirname + '/dist/static')));
 
 // custom
-var routers = require('./routers');
-
-app.use(express.static(__dirname + '/public'));
+const routers = require('./routers');
 
 app.get('/', routers.home);
 app.get('/games/snake', routers.snake);
 app.get('/games/tetris', routers.tetris);
 app.get('/tools/cal', routers.calDay);
 
-var server = app.listen(80);
+const server = app.listen(80);
