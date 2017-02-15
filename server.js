@@ -2,15 +2,20 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-app.use('/static/', express.static(path.join(__dirname + '/dist/static')));
 
 // custom
 const routers = require('./routers');
+const socket = require('./socket');
 
+socket.init(io);
+
+app.use('/static/', express.static(path.join(__dirname + '/dist/static')));
 app.get('/', routers.home);
 app.get('/games/snake', routers.snake);
 app.get('/games/tetris', routers.tetris);
 app.get('/tools/cal', routers.calDay);
 
-const server = app.listen(80);
+server.listen(80);
