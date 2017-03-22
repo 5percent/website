@@ -8,9 +8,9 @@ const io = require('socket.io')(server);
 
 // custom
 const routers = require('./routers');
-const socket = require('./socket');
+const initSocket = require('./socket');
 
-socket.init(io);
+initSocket(io);
 
 app.use('/static/', express.static(path.join(__dirname + '/dist/static')));
 app.get('/', routers.home);
