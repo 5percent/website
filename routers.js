@@ -10,3 +10,7 @@ exports.tetris = function (req, res) {
 exports.calDay = function (req, res) {
     res.sendFile(__dirname + '/views/calDay.html');
 }
+exports.invitation = function (req, res) {
+    res.sendFile(__dirname + '/views/invitation.html');
+}
+

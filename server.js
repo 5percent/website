@@ -17,5 +17,6 @@ app.get('/', routers.home);
 app.get('/games/snake', routers.snake);
 app.get('/games/tetris', routers.tetris);
 app.get('/tools/cal', routers.calDay);
+app.get('/invitation', routers.invitation);
 
-server.listen(80);
+server.listen(8081);
