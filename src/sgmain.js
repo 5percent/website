@@ -6,12 +6,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import App from './App'
-import Hello from './components/Hello'
+import Board from './components/Board'
 
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/', component: Hello }
+    { path: '/', component: Board }
 ];
 
 const router = new VueRouter({
