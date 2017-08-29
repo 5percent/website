@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Wedding Invitation</title>
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/global.css">
+    <style>
+        .main {
+            font-size: 100px;
+            width: 100%;
+            height: 100%;
+        }
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            top: 0;
+            transition: top 0.3s linear;
+        }
+        .section {
+            width: 100%;
+            height: 100%;
+        }
+        .section.s1 {
+            background: url('/static/img/invitation/s1_bg.jpg') 0 0 no-repeat transparent;
+            background-size: cover;
+        }
+        .section.s2 {
+            background: url('/static/img/invitation/s2_bg.jpg') 0 0 no-repeat transparent;
+            background-size: cover;
+        }
+        .section.s3 {
+            position: relative;
+        }
+        .section.s4 {
+        }
+
+        .map {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            font-size: 0;
+        }
+        .map img {width: 100%;}
+        .text {
+            padding: 5rem 2rem;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+    </style>
+  </head>
+  <body>
+    <div class="main">
+        <div class="wrapper" data-index='1'>
+            <section class="section s1">
+            </section>
+            <section class="section s2">
+            </section>
+            <section class="section s3">
+                <div class="text">
+                    <p>时间: 2017年9月10日 上午10:30</p>
+                    <p>地点: 北京市朝阳区太阳宫北街2号院1号楼</p>
+                    <p>路线: 1.自驾：北4环望和桥东南方向
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        2.地铁: 10号线芍药居站B口出沿路向北1100米
+                    </p>
+                </div>
+                <div class="map">
+                    <img src="/static/img/invitation/map.jpg">
+                </div>
+            </section>
+            <section class="section s4">
+                <p class="text">
+                    TODO 这里是个表单
+                </p>
+            </section>
+        </div>
+    <div class="main c1" data-index='1'>
+  </body>
+  <script src="/static/js/zepto.min.js"></script>
+  <script>
+    var touchStartY, touchEndY;
+    $('.main').on('touchstart', function (e) {
+        touchStartY = e.touches[0].pageY;
+    }).on('touchmove', function (e) {
+        e && e.preventDefault();
+        touchEndY = e.touches[0].pageY;
+    }).on('touchend', function (e) {
+        if (Math.abs(touchStartY - touchEndY) < 200) {
+            return;
+        }
+        var dir = touchStartY > touchEndY ? 1 : -1;
+        move(dir);
+    });
+
+    var move = function (dir) {
+        var $dom = $('.wrapper');
+        var index = parseInt($dom.data('index'), 10);
+        var newIndex = index + dir;
+        if (newIndex < 1 || newIndex > 4) {
+            return;
+        }
+        var top = -100 * (newIndex - 1);
+        $dom.data('index', newIndex);
+        $dom.css({top: top + '%'});
+    };
+  </script>
+</html>

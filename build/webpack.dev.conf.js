@@ -29,12 +29,16 @@ module.exports = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'views/index.html',
       template: 'views/index.html',
-      inject: true
+      inject: true,
+      chunks: ['manifest', 'vendor', 'app'],
+      chunksSortMode: 'dependency'
     }),
     new HtmlWebpackPlugin({
       filename: 'views/sg.html',
       template: 'views/sg.html',
-      inject: true
+      inject: true,
+      chunks: ['manifest', 'vendor', 'sg'],
+      chunksSortMode: 'dependency'
     }),
     new FriendlyErrors()
   ]
