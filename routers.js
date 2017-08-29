@@ -1,6 +1,9 @@
 exports.home = function (req, res) {
     res.sendFile(__dirname + '/dist/index.html');
 }
+exports.sg = function (req, res) {
+    res.sendFile(__dirname + '/dist/sg.html');
+}
 exports.snake = function (req, res) {
     res.sendFile(__dirname + '/views/snake.html');
 }
