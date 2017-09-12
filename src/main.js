@@ -9,12 +9,14 @@ import App from './App'
 import Home from './components/Home'
 import Snake from './components/Snake'
 import Tetris from './components/Tetris'
+import Sudoku from './components/Sudoku'
 
 Vue.use(VueRouter);
 
 const routes = [
     { path: '/snake', component: Snake },
     { path: '/tetris', component: Tetris },
+    { path: '/sudoku', component: Sudoku },
     { path: '/', component: Home }
 ];
 

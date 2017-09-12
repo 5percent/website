@@ -2,6 +2,7 @@
     <div class="home">
         <router-link to="/snake">贪吃蛇</router-link>
         <router-link to="/tetris">俄罗斯方块</router-link>
+        <router-link to="/sudoku">数独</router-link>
     </div>
 </template>
 
