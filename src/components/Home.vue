@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <router-link to="/invation">invation</router-link>
-        <a href="/games/snake">贪吃蛇</a>
+        <router-link to="/snake">贪吃蛇</router-link>
+        <router-link to="/tetris">俄罗斯方块</router-link>
     </div>
 </template>
 

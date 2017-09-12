@@ -7,14 +7,14 @@ import VueRouter from 'vue-router'
 
 import App from './App'
 import Home from './components/Home'
-import Invation from './components/Invation'
+import Snake from './components/Snake'
+import Tetris from './components/Tetris'
 
 Vue.use(VueRouter);
 
-const Bar = { template: '<div>bar</div>' };
-
 const routes = [
-    { path: '/invation', component: Invation },
+    { path: '/snake', component: Snake },
+    { path: '/tetris', component: Tetris },
     { path: '/', component: Home }
 ];
 
