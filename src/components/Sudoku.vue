@@ -2,15 +2,14 @@
     <div class="sudoku">
         <div class="pannel">
             <div class="row" v-for="(row, i) in map">
-                <div class="unit" v-for="(unit, j) in row"
-                    @click="focus($event, i, j)" v-text="unit"
-                    @input="unit = $event.target.innerText"
+                <div class="unit" v-for="(unit, j) in row" @click="focus($event, i, j)"
                     :class="{
                         active: current.row === i && current.col === j,
                         'border-bottom-bold': i % 3 == 2,
                         'border-right-bold': j % 3 == 2
                     }"
                 >
+                {{ unit }}
                 </div>
             </div>
         </div>
@@ -26,26 +25,23 @@
 </template>
 
 <script>
-let map = new Array();
-let ind = 9;
-while(ind--) {
-//    map.unshift(new Array(9));
-}
-map.push(new Array(1,2,3,4,5,6,7,8,9));
-map.push(new Array(4,5,6,7,8,9,1,2,3));
-map.push(new Array(2,8,9,1,7,3,4,5,6));
-map.push(new Array(1,2,3,4,5,6,7,8,9));
-map.push(new Array(1,2,3,4,5,6,7,8,9));
-map.push(new Array(1,2,3,4,5,6,7,8,9));
-map.push(new Array(1,2,3,4,5,6,7,8,9));
-map.push(new Array(1,2,3,4,5,6,7,8,9));
-map.push(new Array(1,2,3,4,5,6,7,8,9));
 
 export default {
     name: 'sudoku',
     data() {
         return {
-            map,
+            map: (()=>{
+                let map = {};
+                let arr = [0,1,2,3,4,5,6,7,8];
+                arr.forEach((i) => {
+                    let colArr = {};
+                    arr.forEach((j) => {
+                        colArr[j] = undefined;
+                    });
+                    map[i] = colArr;
+                });
+                return map;
+            })(),
             current: {
                 row: null,
                 col: null
@@ -69,8 +65,10 @@ export default {
 
         },
         complete() {
-            let check = function (row, col) {
-                let val = map[row][col];
+            let _this = this;
+            let check = function (unit) {
+                let {row, col} = unit;
+                let val = _this.map[row][col];
 
                 // 检查整行
                 for(let i = 0; i < 9; i++) {
@@ -78,7 +76,7 @@ export default {
                         continue;
                     }
 
-                    if (val === map[row][i]) {
+                    if (val === _this.map[row][i]) {
                         return false;
                     }
                 }
@@ -89,7 +87,7 @@ export default {
                         continue;
                     }
 
-                    if (val === map[i][col]) {
+                    if (val === _this.map[i][col]) {
                         return false;
                     }
                 }
@@ -103,8 +101,7 @@ export default {
                             continue;
                         }
 
-                        if (val === map[i][j]) {
-                            console.log(i, j)
+                        if (val === _this.map[i][j]) {
                             return false;
                         }
                     }
@@ -114,21 +111,43 @@ export default {
             };
 
             let next = function (unit) {
-                if (unit.col < 8) {
+                let {row, col} = unit;
+                if (col < 8) {
                     return {
-                        row: unit.row,
-                        col: unit.col + 1
+                        row: row,
+                        col: col + 1
                     }
                 }
-//                else if (unit.)
+                else if (row < 8) {
+                    return {
+                        row: row + 1,
+                        col: 0
+                    }
+                }
+                else {
+                    return null;
+                }
             }
 
-            let setUnit = function (row, col) {
-                if (map[row][col] != undefined) {
-                    
+            let setUnit = function (unit) {
+                let {row, col} = unit;
+                let next_unit = next(unit);
+
+                for (let i = 0; i < 9; i++) {
+                    _this.map[row][col] = i;
+
+                    if (!check(unit)) {
+                        continue;
+                    }
+
+//                    _this.map[row][col] = 1;
                 }
-                
+                if (next_unit) {
+                    setUnit(next_unit);
+                }
             };
+
+            setUnit({row: 0, col: 0});
         }
     }
 }
