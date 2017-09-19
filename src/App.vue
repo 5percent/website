@@ -11,7 +11,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+@import '../static/css/variables.less';
+@import '../static/css/global.less';
 #app {
     height: 100%;
     width: 100%;

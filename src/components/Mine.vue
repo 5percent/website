@@ -1,14 +1,23 @@
 <template>
     <div class="mine" id="mine">
         <div class="operator">
-            <input type="radio" v-model="size" value="tall" id="tall"><label for="tall">tall</label>
-            <input type="radio" v-model="size" value="grande" id="grande"><label for="grande">grande</label>
-            <input type="radio" v-model="size" value="venti" id="venti"><label for="venti">venti</label>
-            <button @click="init">New Game!</button>
+            <div class="btn-group inline">
+                <button class="btn" :class="{active: size == 's'}" @click="changeSize($event, 's')">S</button>
+                <button class="btn" :class="{active: size == 'm'}" @click="changeSize($event, 'm')">M</button>
+                <button class="btn" :class="{active: size == 'l'}" @click="changeSize($event, 'l')">L</button>
+            </div>
+            <button class="btn" @click="init">New Game!</button>
         </div>
         <div class="status">
-            remains: {{ remains }}
-            cost: {{ time }}
+            <label>remains:</label>
+            <span>{{ remains }}</span>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <label>cost:</label>
+            <span>{{ time + 's'}}</span>
+        </div>
+        <div class="result">
+            <p v-if="win">You Win!</p>
+            <p v-else-if="over">Game Over!</p>
         </div>
         <div class="wrapper">
             <div class="row" v-for="(map_row, i) in map">
@@ -33,7 +42,7 @@ export default {
     name: 'mine',
     data(){
         return {
-            size: 'grande',
+            size: 'm',
             map: {
                 change: true
             },
@@ -43,7 +52,8 @@ export default {
             remains: 0,
             time: 0,
             clock: null,
-            over: false
+            over: false,
+            win: false
         }
     },
     mounted() {
@@ -52,22 +62,24 @@ export default {
     methods: {
         init() {
             this.over = false;
+            this.win = false;
             this.time = 0;
+            clearInterval(this.clock);
             this.clock = null;
 
             // set fields
             switch(this.size) {
-                case 'tall':
+                case 's':
                     this.row = 9;
                     this.col = 9;
                     this.mines_num = 10;
                     break;
-                case 'grande':
+                case 'm':
                     this.row = 16;
                     this.col = 16;
                     this.mines_num = 40;
                     break;
-                case 'venti':
+                case 'l':
                     this.row = 16;
                     this.col = 30;
                     this.mines_num = 99;
@@ -166,6 +178,9 @@ export default {
             this.map.change = !this.map.change;
 
             return false;
+        },
+        changeSize(e, size) {
+            this.size = size;
         }
 
     },
@@ -185,8 +200,8 @@ export default {
                     }
 
                     this.over = true;
+                    this.win = true;
                     clearInterval(this.clock);
-                    alert('You Win!')
                 }
             }
         }
@@ -195,38 +210,60 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import (reference) '../../static/css/variables.less';
 .mine {
     width: 800px;
     margin: 60px auto;
     text-align: center;
 }
-.operator, .status {
-    margin-bottom: 30px;
+.operator, .status, .result {
+    margin-bottom: 15px;
+}
+.status {
+    label {
+        font-size: 20px;
+    }
+    span {
+        font-size: 20px;
+        display: inline-block;
+        width: 25px;
+        text-align: left;
+        font-weight: 700;
+    }
+}
+.result {
+    height: 30px;
+    font-size: 20px;
+    line-height: 1.5em;
+    font-weight: 700;
+    color: @dark-red;
 }
 .wrapper {
     font-size: 0;
-    border: 1px solid #000;
-    border-width: 1px 0 0 1px;
+    border: 1px solid @dark-ink;
+    border-width: 2px 1px 1px 2px;
     display: inline-block;
 }
 .field{
     display: inline-block;
     width: 25px;
     height: 25px;
+    line-height: 25px;
     border: 1px solid #000;
     border-width: 0 1px 1px 0;
     cursor: pointer;
     font-size: 16px;
     vertical-align: top;
+    background-color: @white;
 
     &.unchecked {
-        background-color: #e3e3e3;
+        background: @dark-white;
     }
     &.mine-field {
-        background-color: red;
+        background: url('../../static/img/mines.png') -25px 0;
     }
     &.flag-field {
-        background-color: yellow;
+        background: url('../../static/img/mines.png');
     }
 }
 </style>
