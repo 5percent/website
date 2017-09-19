@@ -6,10 +6,15 @@
             <input type="radio" v-model="size" value="venti" id="venti"><label for="venti">venti</label>
             <button @click="init">New Game!</button>
         </div>
+        <div class="status">
+            remains: {{ remains }}
+            cost: {{ time }}
+        </div>
         <div class="wrapper">
             <div class="row" v-for="(map_row, i) in map">
                 <div class="field" v-for="(field, j) in map_row" 
                     :class="{
+                        'unchecked': field.val === undefined,
                         'mine-field': over && field.isMine,
                         'flag-field': field.isFlag
                     }"
@@ -34,6 +39,10 @@ export default {
             },
             row: 0,
             col: 0,
+            mines_num: 0,
+            remains: 0,
+            time: 0,
+            clock: null,
             over: false
         }
     },
@@ -43,27 +52,29 @@ export default {
     methods: {
         init() {
             this.over = false;
-
-            let mines_num = 0;
+            this.time = 0;
+            this.clock = null;
 
             // set fields
             switch(this.size) {
                 case 'tall':
                     this.row = 9;
                     this.col = 9;
-                    mines_num = 10;
+                    this.mines_num = 10;
                     break;
                 case 'grande':
                     this.row = 16;
                     this.col = 16;
-                    mines_num = 40;
+                    this.mines_num = 40;
                     break;
                 case 'venti':
                     this.row = 16;
                     this.col = 30;
-                    mines_num = 99;
+                    this.mines_num = 99;
                     break;
             }
+            this.remains = this.mines_num;
+
             this.map = {
                 change: true
             };
@@ -71,7 +82,7 @@ export default {
                 let colObj = {};
                 for (let j = 0; j < this.col; j++) {
                     colObj[j] = {
-                        val: '',
+                        val: undefined,
                         isMine: false,
                         isFlag: false
                     };
@@ -80,7 +91,7 @@ export default {
             }
 
             // set mines
-            for (let num = 0; num < mines_num; num++) {
+            for (let num = 0; num < this.mines_num; num++) {
                 while(1) {
                     let mine_row = Math.round(Math.random() * 1000) % this.row;
                     let mine_col = Math.round(Math.random() * 1000) % this.col;
@@ -90,16 +101,21 @@ export default {
                     }
                 }
             }
-
-            //this.over = true;
         },
         check(e, row, col) {
-            if (this.over || this.map[row][col].isFlag) {
+            if (!this.clock) {
+                this.clock = setInterval(() => {
+                    this.time++;
+                }, 1000);
+            }
+
+            if (this.over || this.map[row][col].isFlag || this.map[row][col].val === '') {
                 return false;
             }
 
             if (this.map[row][col].isMine) {
                 this.over = true;
+                clearInterval(this.clock);
                 return false;
             }
 
@@ -120,11 +136,23 @@ export default {
                 this.map.change = !this.map.change;
             }
             else {
+                this.map[row][col].val = '';
+                this.checkAround(null, row, col);
             }
         },
         checkAround(e, row, col) {
             e && e.preventDefault();
-            console.log('checkAround');
+            row = +row;
+            col = +col;
+            let row_start = row > 0 ? row - 1 : row;
+            let col_start = col > 0 ? col - 1 : col;
+            let mine_num = 0;
+
+            for (let i = row_start; i < row + 2 && i < this.row; i++) {
+                for (let j = col_start; j < col + 2 && j < this.col; j++) {
+                    this.check(null, i, j);
+                }
+            }
 
         },
         mark(e, row, col) {
@@ -134,6 +162,7 @@ export default {
                 return false;
             }
             this.map[row][col].isFlag = !this.map[row][col].isFlag;
+            this.map[row][col].isFlag ? this.remains-- : this.remains++;
             this.map.change = !this.map.change;
 
             return false;
@@ -146,8 +175,19 @@ export default {
         },
         map: {
             deep: true,
-            handler(val) {
-                console.log('change');
+            handler() {
+                if (!this.over) {
+                    for (let i = 0; i < this.row; i++) {
+                        for (let j = 0; j < this.col; j++) {
+                            if (this.map[i][j].val === undefined && !this.map[i][j].isMine) 
+                                return false;
+                        }
+                    }
+
+                    this.over = true;
+                    clearInterval(this.clock);
+                    alert('You Win!')
+                }
             }
         }
     }
@@ -160,7 +200,7 @@ export default {
     margin: 60px auto;
     text-align: center;
 }
-.operator {
+.operator, .status {
     margin-bottom: 30px;
 }
 .wrapper {
@@ -179,6 +219,9 @@ export default {
     font-size: 16px;
     vertical-align: top;
 
+    &.unchecked {
+        background-color: #e3e3e3;
+    }
     &.mine-field {
         background-color: red;
     }
