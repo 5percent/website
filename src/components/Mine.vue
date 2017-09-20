@@ -1,5 +1,5 @@
 <template>
-    <div class="mine" id="mine">
+    <div class="mine" id="mine" onselectstart="return false">
         <div class="operator">
             <div class="btn-group inline">
                 <button class="btn" :class="{active: size == 's'}" @click="changeSize($event, 's')">S</button>
