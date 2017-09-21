@@ -121,7 +121,7 @@ export default {
                 }, 1000);
             }
 
-            if (this.over || this.map[row][col].isFlag || this.map[row][col].val === '') {
+            if (this.over || this.map[row][col].isFlag || this.map[row][col].val !== undefined) {
                 return false;
             }
 
@@ -170,7 +170,7 @@ export default {
         mark(e, row, col) {
             e && e.preventDefault();
 
-            if (this.over) {
+            if (this.over || this.map[row][col].val !== undefined) {
                 return false;
             }
             this.map[row][col].isFlag = !this.map[row][col].isFlag;
