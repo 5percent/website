@@ -154,6 +154,11 @@ export default {
         },
         checkAround(e, row, col) {
             e && e.preventDefault();
+
+            if (this.over || this.map[row][col].isFlag) {
+                return false;
+            }
+
             row = +row;
             col = +col;
             let row_start = row > 0 ? row - 1 : row;
