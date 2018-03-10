@@ -1,9 +1,10 @@
 <template>
     <div class="board-wrapper">
-        <div class="board">
-            <div v-for="note in notes" class="note">
-                <p class="text">{{note.content}}</p>
-            </div>
+        <div class="header">
+            <button></button>
+        </div>
+        <div v-for="note in notes" class="note">
+            <p class="text">{{note.content}}</p>
         </div>
     </div>
 </template>
@@ -14,23 +15,7 @@ export default {
     data() {
         return {
             notes: [{
-                content: '123'
-            }, {
-                content: '1123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf23ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf'
-            }, {
-                content: '123'
-            }, {
-                content: '123'
-            }, {
-                content: '123'
-            }, {
-                content: '123'
-            }, {
-                content: '123'
-            }, {
-                content: '123'
-            }, {
-                content: '123'
+                content: '表白西西'
             }]
         }
     }
@@ -38,43 +23,37 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    .board-wrapper {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #E6F7F7;
-        overflow: scroll;
-    }
-    .board {
-        background-color: #333;
-        position: relative;
-        width: 920px;
-        min-height: 800px;
-        top: 200px;
-        left: 50%;
-        margin: 0 0 0 -460px;
-        border-radius: 20px 20px 0 0;
-        box-shadow: 0 0 10px 2px #000;
-        padding: 15px;
-        font-size: 0;
-    }
-    .note {
-        display: inline-block;
-        background-color: #FFE495;
-        padding: 15px;
-        width: 170px;
-        min-height: 120px;
-        border-radius: 5px;
-        word-wrap: break-word;
-        text-align: justify;
-        vertical-align: top;
-        margin: 15px;
-        font-size: 14px;
-    }
-    .text {
-        color: #434343;
-    }
-    
+.board-wrapper {
+    width: 100%;
+    min-height: 100%;
+    overflow-y: scroll;
+
+    background-color: #F9F8EB;
+}
+.header {
+    width: 100%;
+    height: 1rem;
+    background-color: #155263; 
+}
+button {
+    float: right;
+    display: inline-block;
+    height: .6rem;
+    width: .6rem;
+    background-image: url('../../../static/img/note.png');
+    background-size: 100%;
+    background-color: #155263;
+    color: #fff;
+    font-size: .3rem;
+    margin: .15rem .15rem 0 0;
+
+}
+.note {
+    font-size: .4rem;
+    background-color: #FFEBB7;
+    margin: .2rem 0;
+    padding: .4rem;
+    word-wrap: wrap;
+    word-break: break-all;
+}
 </style>
