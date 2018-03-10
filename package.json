@@ -2,7 +2,7 @@
   "name": "zlu-website",
   "version": "1.0.0",
   "description": "personal website",
-  "author": "5percent",
+  "author": "zlu",
   "main": "server.js",
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -15,7 +15,6 @@
   "keywords": [
     "zlu"
   ],
-  "author": "zlu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/5percent/website/issues"
@@ -32,7 +31,9 @@
     "vue": "^2.1.0",
     "vue-cli": "",
     "vue-router": "^2.2.1",
-    "vue-style-loader": "^1.0.0"
+    "vue-style-loader": "^1.0.0",
+    "mongodb": "^2.0.0",
+    "mongoskin": "^2.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

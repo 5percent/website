@@ -13,6 +13,8 @@ const initSocket = require('./socket');
 initSocket(io);
 
 app.use('/static/', express.static(path.join(__dirname + '/dist/static')));
+app.use('/photo/', express.static(path.join(__dirname + '/photo')));
+
 app.get('/', routers.home);
 app.get('/cc', routers.sg);
 app.get('/games/snake', routers.snake);

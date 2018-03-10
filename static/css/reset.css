@@ -4,7 +4,7 @@ address, caption, cite, code, dfn,em, strong, i, th, var, optgroup { font-style:
 h1, h2, h3, h4, h5, h6,abbr,acronym{ font-weight: normal;}
 input,button,textarea,select,optgroup,option{ font-family: inherit; font-size: inherit; font-style: inherit; font-weight: inherit;}
 input,button,textarea,select { font-size: 100%;}
-input[type="text"],input[type="password"],textarea{ outline-style:none; -webkit-appearance:none;-webkit-border-radius: 0;border-radius: 0}
+input[type="text"],input[type="password"],input[type="date"],textarea{ outline-style:none; -webkit-appearance:none;-webkit-border-radius: 0;border-radius: 0}
 textarea{resize:none;}
 ol,ul{ list-style: none;}
 table{ border-collapse: collapse; border-spacing: 0;}
@@ -19,3 +19,4 @@ blockquote,q{ quotes: none;}
 :focus{ outline:none;}
 img{ border:none;max-width: 100%;}
 blockquote:before,blockquote:after,q:before,q:after{ content: ''; content: none;}
+button {-webkit-appearance: none;border: none;}

@@ -6,13 +6,23 @@
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/global.css">
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io.connect('http://localhost');
-      socket.on('news', function (data) {
-        console.log(data);
-        socket.emit('my other event', { my: 'data' });
-      });
-    </script>
+    <script type="text/javascript">
+      var global = {};
+      window.onresize = resize;
+  
+      function resize(resizeNum) {
+          var winW = window.innerWidth;
+          document.getElementsByTagName('html')[0].style.fontSize = winW * 100 / 750 + 'px';
+          if (winW > window.screen.width && resizeNum <= 10) {
+              setTimeout(function () {
+                  resize(++resizeNum);
+              }, 100);
+          } else {
+              document.getElementsByTagName('html')[0].style.opacity = 1;
+          }
+      }
+      resize(0);
+  </script>
   </head>
   <body>
     <div id="sg"></div>
