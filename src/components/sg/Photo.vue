@@ -1,9 +1,7 @@
 <template>
-    <div class="board-wrapper">
-        <div class="board">
-            <div v-for="note in notes" class="note">
-                <p class="text">{{note.content}}</p>
-            </div>
+    <div class="photo-wrapper">
+        <div class="photo-block" v-for="item in photos">
+            <img :src="item.src">
         </div>
     </div>
 </template>
@@ -13,68 +11,51 @@ export default {
     name: 'board',
     data() {
         return {
-            notes: [{
-                content: '123'
+            photos: [{
+                src: 'http://luzhe.info/photo/IMG_0562.JPG'
             }, {
-                content: '1123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf123ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf23ajdflajdflajdlfjadlkfaldkfjalkdjfadifuaodifqd,nfdfaoidjfalkdsjfqejflkadsjfalkdjflkdsjaf'
+                src: 'http://luzhe.info/photo/IMG_0568.JPG'
             }, {
-                content: '123'
+                src: 'http://luzhe.info/photo/IMG_0569.JPG'
             }, {
-                content: '123'
+                src: 'http://luzhe.info/photo/IMG_0571.JPG'
             }, {
-                content: '123'
+                src: 'http://luzhe.info/photo/IMG_0573.JPG'
             }, {
-                content: '123'
+                src: 'http://luzhe.info/photo/IMG_0575.JPG'
             }, {
-                content: '123'
+                src: 'http://luzhe.info/photo/IMG_0578.JPG'
             }, {
-                content: '123'
+                src: 'http://luzhe.info/photo/WechatIMG3.jpeg'
             }, {
-                content: '123'
+                src: 'http://luzhe.info/photo/z1.jpeg'
+            }, {
+                src: 'http://luzhe.info/photo/z8.jpeg'
+            }, {
+                src: 'http://luzhe.info/photo/z4.jpeg'
             }]
-        }
+        };
     }
-}
+};
 </script>
 
 <style lang="less" scoped>
-    .board-wrapper {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #E6F7F7;
-        overflow: scroll;
+.photo-wrapper {
+    width: 100%;
+    background-color: #F9F8EB;
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+}
+
+.photo-block {
+    width: 100%;
+    margin-bottom: .2rem;
+
+    img {
+        width: 100%;
+        height: 100%;
     }
-    .board {
-        background-color: #333;
-        position: relative;
-        width: 920px;
-        min-height: 800px;
-        top: 200px;
-        left: 50%;
-        margin: 0 0 0 -460px;
-        border-radius: 20px 20px 0 0;
-        box-shadow: 0 0 10px 2px #000;
-        padding: 15px;
-        font-size: 0;
-    }
-    .note {
-        display: inline-block;
-        background-color: #FFE495;
-        padding: 15px;
-        width: 170px;
-        min-height: 120px;
-        border-radius: 5px;
-        word-wrap: break-word;
-        text-align: justify;
-        vertical-align: top;
-        margin: 15px;
-        font-size: 14px;
-    }
-    .text {
-        color: #434343;
-    }
+}
     
 </style>

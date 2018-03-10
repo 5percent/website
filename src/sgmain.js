@@ -8,6 +8,7 @@ import VueRouter from 'vue-router'
 import App from './App'
 import Entry from './components/sg/Entry'
 import Garden from './components/sg/Garden'
+import Photo from './components/sg/Photo'
 import Board from './components/sg/Board'
 
 Vue.use(VueRouter);
@@ -15,6 +16,7 @@ Vue.use(VueRouter);
 const routes = [
     { path: '/', component: Entry },
     { path: '/garden', component: Garden},
+    { path: '/photo', component: Photo},
     { path: '/board', component: Board}
 ];
 
