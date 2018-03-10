@@ -6,9 +6,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import App from './App'
-import Entry from './components/Entry'
-import Garden from './components/Garden'
-import Board from './components/Board'
+import Entry from './components/sg/Entry'
+import Garden from './components/sg/Garden'
+import Board from './components/sg/Board'
 
 Vue.use(VueRouter);
 
