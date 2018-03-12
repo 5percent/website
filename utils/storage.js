@@ -10,31 +10,25 @@ var Storage = {
         this._db = Mongo.db("mongodb://127.0.0.1:27017/cc");
     },
 
-    readOne(collection_name, query) {
-        if(!this._db){
-            this.init();
-        }
-        
-        return callback => {
-            let collection = this._db.bind(collection_name);
-            collection.find(query, {
-                limit: 1,
-                sort: {'date': -1}
-            }).toArray((err,docs) => {
-                callback(err, docs);
-                this._db.close();
-            });
-        };
-    },
-
-    read(collection_name, query) {
+    read(collection_name, query, cond) {
         if(!this._db){
             this.init();
         }
 
         return callback => {
             let collection = this._db.collection(collection_name);
-            collection.find(query).toArray((err,docs) => {
+            let res = collection.find(query, {_id: 0});
+
+            if (cond.sort) {
+                res = res.sort(cond.sort);
+            }
+
+            if (cond.ps && cond.pn) {
+                let index = (cond.pn - 1) * cond.ps;
+                res = res.skip(index).limit(cond.ps);
+            }
+
+            res.toArray((err,docs) => {
                 callback(err, docs);
                 this._db.close();
             });
@@ -69,6 +63,9 @@ var Storage = {
         };
     }
 };
+
+// Storage.write('photos', {url: ""})( (err, res)=> {console.log(err, res)});
+// Storage.read('photos', {}, {pn: 1, ps:1, sort: {'_id': -1}})( (err, res)=> {console.log(err, res)});
 
 
 module.exports = Storage;

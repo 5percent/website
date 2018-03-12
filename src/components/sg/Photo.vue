@@ -1,7 +1,7 @@
 <template>
     <div class="photo-wrapper">
         <div class="photo-block" v-for="item in photos">
-            <img :src="item.src">
+            <img :src="item.url">
         </div>
     </div>
 </template>
@@ -11,30 +11,20 @@ export default {
     name: 'board',
     data() {
         return {
-            photos: [{
-                src: 'http://luzhe.info/photo/IMG_0562.JPG'
-            }, {
-                src: 'http://luzhe.info/photo/IMG_0568.JPG'
-            }, {
-                src: 'http://luzhe.info/photo/IMG_0569.JPG'
-            }, {
-                src: 'http://luzhe.info/photo/IMG_0571.JPG'
-            }, {
-                src: 'http://luzhe.info/photo/IMG_0573.JPG'
-            }, {
-                src: 'http://luzhe.info/photo/IMG_0575.JPG'
-            }, {
-                src: 'http://luzhe.info/photo/IMG_0578.JPG'
-            }, {
-                src: 'http://luzhe.info/photo/WechatIMG3.jpeg'
-            }, {
-                src: 'http://luzhe.info/photo/z1.jpeg'
-            }, {
-                src: 'http://luzhe.info/photo/z8.jpeg'
-            }, {
-                src: 'http://luzhe.info/photo/z4.jpeg'
-            }]
+            photos: []
         };
+    },
+    mounted() {
+        //TODO 修改为多次加载
+        socket.emit('getPhotos', {ps: 20, pn:1});
+
+        socket.off('pushPhotos');
+        socket.on('pushPhotos', data => {
+            this.photos = this.photos.concat(data);
+        });
+
+        // socket.once('noMorePhotos', data => {
+        // });
     }
 };
 </script>
