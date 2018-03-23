@@ -5,11 +5,6 @@ const Storage = require('./utils/storage');
 
 let initSocket = function (io) {
     io.on('connection', socket => {
-        socket.emit('news', { hello: 'world' });
-        socket.on('my other event', data => {
-            console.log(data);
-        });
-
         socket.on('getPhotos', data => {
             Co(function* () {
                 let photos = yield Storage.read('photos', {}, {
@@ -24,7 +19,34 @@ let initSocket = function (io) {
                 }
                 
             }).catch(errorHandler);
+        });
 
+        socket.on('writeNote', data => {
+            Co(function* () {
+                yield Storage.write('notes', {
+                    text: data.text,
+                    date: Moment().format('YYYY-MM-DD HH:mm:ss')
+                });
+                socket.emit('writeNoteDone');
+            }).catch((e)=> {
+                socket.emit('writeNoteFailed');
+                errorHandler(e);
+            });
+        });
+
+        socket.on('getNotes', data => {
+            Co(function* () {
+                let notes = yield Storage.read('notes', {}, {
+                    pn: data.pn,
+                    ps: data.ps,
+                    sort: {'_id': -1}
+                });
+                socket.emit('pushNotes', notes);
+
+                if (notes.length < data.ps) {
+                    socket.emit('noMoreNotes', 'true');
+                }
+            }).catch(errorHandler);
         });
     });
 };
