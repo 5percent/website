@@ -9,6 +9,7 @@
         </div>
         <div class="pad" :class="{ 'show': showPad}">
             <div class="pad-header">
+                <button class="cancel-btn" @click="hide">cancel</button>
                 <button class="pad-btn" @click="post">done</button>
             </div>
             <div class="pad-container">
@@ -29,15 +30,17 @@ export default {
         }
     },
     mounted() {
-        socket.emit('getNotes', {ps: 20, pn:1});
+        this.get();
+
         socket.off('pushNotes');
         socket.on('pushNotes', data => {
-            this.notes = this.notes.concat(data);
+            this.notes = data;
         });
 
         socket.off('writeNoteDone');
         socket.on('writeNoteDone', () => {
             this.hide();
+            this.get();
         });
     },
     methods: {
@@ -47,8 +50,13 @@ export default {
         hide() {
             this.showPad = false;
         },
+        get() {
+            socket.emit('getNotes', {ps: 20, pn:1});
+        },
         post() {
-            socket.emit('writeNote', {text: this.text});
+            if (this.text != '') {
+                socket.emit('writeNote', {text: this.text});
+            }
         }
     }
 }
@@ -57,7 +65,7 @@ export default {
 <style lang="less" scoped>
 .board-wrapper {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     overflow-y: scroll;
 
     background-color: #F9F8EB;
@@ -102,12 +110,12 @@ export default {
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 0;
-    display: none;
+    top: -200%;
+    height: 100%;
+    transition: top .7s linear;
 
     &.show {
-        display: block;
+        top: 0;
     }
     
 
@@ -120,6 +128,16 @@ export default {
 
     .pad-btn {
         float: right;
+        display: inline-block;
+        height: 100%;
+        width: 1.2rem;
+        color: #fff;
+        font-size: .3rem;
+        background-color: #155263;
+    }
+
+    .cancel-btn {
+        float: left;
         display: inline-block;
         height: 100%;
         width: 1.2rem;
