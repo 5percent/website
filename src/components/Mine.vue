@@ -24,8 +24,9 @@
                 <div class="field" v-for="(field, j) in map_row" 
                     :class="{
                         'unchecked': field.val === undefined,
-                        'mine-field': over && field.isMine,
-                        'flag-field': field.isFlag
+                        'flag-field': field.isFlag,
+                        'mine-field': over && field.isMine && !field.isFlag,
+                        'error-flag': over && field.isMine && field.isFlag
                     }"
                     @click="check($event, i, j)"
                     @dblclick="checkAround($event, i, j)"
@@ -269,6 +270,9 @@ export default {
     }
     &.flag-field {
         background: url('../../static/img/mines.png');
+    }
+    &.error-flag {
+        background: url('../../static/img/mines.png') 0 -25px;
     }
 }
 </style>
