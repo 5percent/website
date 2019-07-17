@@ -26,7 +26,7 @@
                         'unchecked': field.val === undefined,
                         'flag-field': field.isFlag,
                         'mine-field': over && field.isMine && !field.isFlag,
-                        'error-flag': over && field.isMine && field.isFlag
+                        'error-flag': over && !field.isMine && field.isFlag
                     }"
                     @click="check($event, i, j)"
                     @dblclick="checkAround($event, i, j)"
