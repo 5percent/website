@@ -27,7 +27,7 @@
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
     "mysql": "",
-    "socket.io": "^1.7.2",
+    "socket.io": "^2.4.0",
     "vue": "^2.1.0",
     "vue-cli": "",
     "vue-router": "^2.2.1",
