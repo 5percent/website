@@ -7,8 +7,8 @@ const io = require('socket.io')(server);
 
 
 // custom
-const routers = require('./routers');
-const initSocket = require('./socket');
+const routers = require('./node/routers');
+const initSocket = require('./node/socket');
 
 initSocket(io);
 
@@ -17,9 +17,5 @@ app.use('/photo/', express.static(path.join(__dirname + '/photo')));
 
 app.get('/', routers.home);
 app.get('/cc', routers.sg);
-app.get('/games/snake', routers.snake);
-app.get('/games/tetris', routers.tetris);
-app.get('/tools/cal', routers.calDay);
-app.get('/invitation', routers.invitation);
 
 server.listen(80);
