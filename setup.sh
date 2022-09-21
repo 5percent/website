@@ -7,4 +7,4 @@ npm i
 
 npm run build
 
-cp -R dist ../dist
+cp -R dist ../
