@@ -24,7 +24,7 @@
     "express": "^4.18.1",
     "mongodb": "^2.0.0",
     "mongoskin": "^2.1.0",
-    "socket.io": "^1.7.2",
+    "socket.io": "^4.5.4",
     "moment": "2.x.x"
   },
   "engines": {
