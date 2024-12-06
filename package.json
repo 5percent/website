@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/5percent/website#readme",
   "dependencies": {
-    "express": "^4.18.1",
+    "express": "^4.21.2",
     "mongodb": "^2.0.0",
     "mongoskin": "^2.1.0",
     "socket.io": "^1.7.2",
